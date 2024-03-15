@@ -53,5 +53,14 @@ public class ProductoController {
         producto = productoService.getProducto(producto);
         model.addAttribute("producto", producto); // El método correcto es addAttribute en lugar de addAllAttribute
         return "/producto/modifica"; }// La ruta de retorno es correcta
+    
+    
+    
+    @GetMapping("/eliminar/{idProducto}")
+    public String elimina(Producto producto) {
+        productoService.delete(producto);
+        return"redirect:/producto/listado";
+    }
+
 }
 

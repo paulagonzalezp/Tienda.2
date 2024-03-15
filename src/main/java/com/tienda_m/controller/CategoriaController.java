@@ -53,5 +53,14 @@ public class CategoriaController {
         categoria = categoriaService.getCategoria(categoria);
         model.addAttribute("categoria", categoria); // El método correcto es addAttribute en lugar de addAllAttribute
         return "/categoria/modifica"; }// La ruta de retorno es correcta
+    
+    
+    
+    @GetMapping("/eliminar/{idCategoria}")
+    public String elimina(Categoria categoria) {
+        categoriaService.delete(categoria);
+        return"redirect:/categoria/listado";
+    }
+
 }
 
