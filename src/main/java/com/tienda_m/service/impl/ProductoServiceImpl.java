@@ -9,20 +9,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class ProductoServiceImpl implements ProductoService{
+public class ProductoServiceImpl implements ProductoService {
 
     @Autowired
     private ProductoDao productoDao;
-    
+
     @Override
     @Transactional(readOnly = true)
     public List<Producto> getProductos(boolean activo) {
-       var lista=productoDao.findAll();
-       
-        if (activo) {//Si se quieren solo las productos activas 
+        List<Producto> lista = productoDao.findAll();
+
+        if (activo) { // Si se quieren solo las productos activas 
             lista.removeIf(c -> !c.isActivo());
         }
-       return lista;
+        return lista;
     }
 
     @Override
@@ -34,7 +34,7 @@ public class ProductoServiceImpl implements ProductoService{
     @Override
     @Transactional
     public void save(Producto producto) {
-       productoDao.save(producto);
+        productoDao.save(producto);
     }
 
     @Override
@@ -42,10 +42,34 @@ public class ProductoServiceImpl implements ProductoService{
     public void delete(Producto producto) {
         productoDao.delete(producto);
     }
-
     @Override
     public Producto getProductoPorId(Long idProducto) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+    // Esta consulta utiliza consultas ampliadas
+    @Override
+    @Transactional(readOnly = true)
+    public List<Producto> metodoJPA(double precioInf, double precioSup) {
+        return productoDao.findByPrecioBetweenOrderByDescripcion(precioInf, precioSup); 
+    }
+
+    // Esta consulta utiliza consultas JPQL
+    @Override
+    @Transactional(readOnly = true)
+    public List<Producto> metodoJPQL(double precioInf, double precioSup) {
+        return productoDao.metodoJPQL(precioInf, precioSup);
+    }
+
+    // Esta consulta utiliza consultas SQL
+    @Override
+    @Transactional(readOnly = true)
+    public List<Producto> metodoSQL(double precioInf, double precioSup) {
+        return productoDao.metodoSQL(precioInf, precioSup);
+    }
+
     
+    
+
 }
+

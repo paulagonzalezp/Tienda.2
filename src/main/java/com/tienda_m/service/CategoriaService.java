@@ -19,4 +19,6 @@ public interface CategoriaService {
     public void delete (Categoria categoria);
 
     public Categoria getCategoriaPorId(Long idCategoria);
+
+    public Categoria getCategoria(Long idCategoria);
 }

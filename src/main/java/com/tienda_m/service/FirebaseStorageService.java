@@ -2,10 +2,7 @@ package com.tienda_m.service;
 
 import org.springframework.web.multipart.MultipartFile;
 
-/**
- *
- * @author PC
- */
+
 public interface FirebaseStorageService {
      public String cargaImagen(MultipartFile archivoLocalCliente, String carpeta, Long id);
 

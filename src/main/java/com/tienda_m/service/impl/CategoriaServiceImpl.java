@@ -47,5 +47,10 @@ public class CategoriaServiceImpl implements CategoriaService{
     public Categoria getCategoriaPorId(Long idCategoria) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+    @Override
+    public Categoria getCategoria(Long idCategoria) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
 }
