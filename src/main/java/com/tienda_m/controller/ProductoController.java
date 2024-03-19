@@ -1,6 +1,7 @@
 package com.tienda_m.controller;
 
 import com.tienda_m.domain.Producto;
+import com.tienda_m.service.CategoriaService;
 import com.tienda_m.service.ProductoService;
 import com.tienda_m.service.impl.FirebaseStorageServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +19,19 @@ public class ProductoController {
 
     @Autowired
     private ProductoService productoService;
-
+    @Autowired
+    private CategoriaService  categoriaService;
     // "/producto/listado"
+    
     @GetMapping("/listado")
     public String listado(Model model) {
         var lista = productoService.getProductos(false);
         model.addAttribute("productos", lista);
         model.addAttribute("totalProductos", lista.size());
+        
+        var categoria = categoriaService.getCategorias(true);
+        model.addAttribute("categorias", categoria);
+        
         return "producto/listado"; // Corregido
     }
 
@@ -50,6 +57,10 @@ public class ProductoController {
     
     @GetMapping("/modificar/{idProducto}")
     public String modifica(Producto producto, Model model) {
+         var categoria = categoriaService.getCategorias(true);
+        model.addAttribute("categorias", categoria);
+        
+        
         producto = productoService.getProducto(producto);
         model.addAttribute("producto", producto); // El método correcto es addAttribute en lugar de addAllAttribute
         return "/producto/modifica"; }// La ruta de retorno es correcta

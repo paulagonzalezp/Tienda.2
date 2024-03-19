@@ -33,34 +33,32 @@ public class CategoriaController {
 
     @PostMapping("/guardar")
     public String guardar(Categoria categoria,
-                          @RequestParam("imagenFile") MultipartFile imagenFile) {
+            @RequestParam("imagenFile") MultipartFile imagenFile) {
         // Aquí va la lógica para guardar la categoría y la imagen
         if (!imagenFile.isEmpty()) {
             categoriaService.save(categoria);
-            String rutaImagen = 
-                    firebaseStorageServiceImpl
-                            .cargaImagen(imagenFile, 
-                                    "categoria", 
+            String rutaImagen
+                    = firebaseStorageServiceImpl
+                            .cargaImagen(imagenFile,
+                                    "categoria",
                                     categoria.getIdCategoria());
             categoria.setRutaImagen(rutaImagen); // Corregido
         }
         categoriaService.save(categoria);
         return "redirect:/categoria/listado";
     }
-    
+
     @GetMapping("/modificar/{idCategoria}")
     public String modifica(Categoria categoria, Model model) {
         categoria = categoriaService.getCategoria(categoria);
         model.addAttribute("categoria", categoria); // El método correcto es addAttribute en lugar de addAllAttribute
-        return "/categoria/modifica"; }// La ruta de retorno es correcta
-    
-    
-    
+        return "/categoria/modifica";
+    }// La ruta de retorno es correcta
+
     @GetMapping("/eliminar/{idCategoria}")
     public String elimina(Categoria categoria) {
         categoriaService.delete(categoria);
-        return"redirect:/categoria/listado";
+        return "redirect:/categoria/listado";
     }
 
 }
-
