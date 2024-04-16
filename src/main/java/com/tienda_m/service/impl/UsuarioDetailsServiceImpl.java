@@ -17,7 +17,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service("userDetailsService")
-public class UsuarioDetailsServiceImpl1 extends UsuarioDetailsService 
+public class UsuarioDetailsServiceImpl extends UsuarioDetailsService 
         implements 
         UserDetailsService {
     

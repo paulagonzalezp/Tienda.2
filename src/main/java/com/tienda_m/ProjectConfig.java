@@ -58,14 +58,18 @@ public class ProjectConfig implements WebMvcConfigurer {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests((requests)
                 -> requests
-                        .antMatchers("/", "/login", "/js/**", "/webjars/**").permitAll()
-                        .antMatchers("/categoria/listado", "/producto/listado").hasRole("VENDEDOR")
-                        .antMatchers("/categoria/nuevo", "/categoria/modificar/**",
+                        .requestsMatchers("/", "/login", "/js/**", "/webjars/**","/regsitro/**")
+                        .permitAll()
+                        .requestsMatchers("/categoria/listado", "/producto/listado")
+                        .hasRole("VENDEDOR")
+                        .requestsMatchers("/categoria/nuevo", "/categoria/modificar/**",
                                 "/categoria/eliminar/**", "/categoria/guardar",
-                                "/producto/nuevo/**", "/producto/guardar",
+                                "/producto/nuevo/**", "/producto/modificar",
                                 "/producto/eliminar/**", "/producto/guardar",
-                                "/pruebas/**").hasRole("ADMIN")
-                        .antMatchers("/facturar/carrito").hasRole("USER")
+                                "/pruebas/**")
+                        .hasRole("ADMIN")
+                        .requestsMatchers("/facturar/carrito")
+                        .hasRole("USER")
         ).formLogin((form) -> form.loginPage("/login").permitAll())
                 .logout((logout) -> logout.permitAll());
 
